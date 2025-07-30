@@ -180,6 +180,19 @@ const mealsCollection = client.db('mealDB').collection('meals');
   });
 
 
+
+  app.put('/upMeals/:id', async(req, res)=>{
+    const id = req.params.id;
+    const filter = {_id: new ObjectId(id)};
+    const updatedMeal = req.body;
+    const updatedDoc = {
+         $set:updatedMeal
+    }
+    const result = await upMealsCollection.updateOne(filter,updatedDoc);
+    res.send(result)
+  })
+
+
   app.delete('/upMeals/:id',async(req,res)=> {
     const id = req.params.id;
     const query = {_id: new ObjectId(id)};
@@ -187,6 +200,7 @@ const mealsCollection = client.db('mealDB').collection('meals');
     res.send(result);
   });
 
+  
 
 
 
